@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
 namespace StarShipGame
 {
@@ -52,25 +54,54 @@ namespace StarShipGame
             form.Visible = true;
             Application.Run(form);
         }
-
+        /// <summary>
+        /// Действие по закрытию формы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void Form_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }
-
+        /// <summary>
+        /// Выход
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void BtnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-
+        /// <summary>
+        /// Рекорды
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void BtnRecords_Click(object sender, EventArgs e)
         {
+            StringBuilder records = new StringBuilder();
+            using (StreamReader file = new StreamReader("record.txt"))
+            {
+                while (!file.EndOfStream)
+                {
+                    records.Append(file?.ReadLine()+"\n");
+                }
+            }
+            MessageBox.Show(records.ToString());
         }
-
+        /// <summary>
+        /// Новая игра
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void BtnNewGame_Click(object sender, EventArgs e)
         {
             form.Hide();
             Form form1 = new Form();
+            {
+                form1.Width = Screen.PrimaryScreen.Bounds.Width;
+                form1.Height = Screen.PrimaryScreen.Bounds.Height;
+            }
             form1.Width = 800;
             form1.Height = 600;
             Game.Init(form1);           
@@ -78,7 +109,11 @@ namespace StarShipGame
             Game.Draw();
             form1.FormClosed += Form1_FormClosed;
         }        
-
+        /// <summary>
+        /// Закрытие формы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();

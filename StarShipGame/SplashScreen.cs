@@ -4,6 +4,9 @@ using System.Windows.Forms;
 
 namespace StarShipGame
 {
+    /// <summary>
+    /// Главное меню(все понятно)
+    /// </summary>
     class SplashScreen
     {
         private static BufferedGraphicsContext context;

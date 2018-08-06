@@ -2,23 +2,30 @@
 using System.Drawing;
 namespace StarShipGame
 {
-    class BaseObjectScreen
+    abstract class BaseObjectScreen
     {
         protected Point pos;
         protected Point dir;
         protected Size size;
+        /// <summary>
+        /// Конструктор объекта для заставки
+        /// </summary>
+        /// <param name="_pos"></param>
+        /// <param name="_dir"></param>
+        /// <param name="_size"></param>
         public BaseObjectScreen(Point _pos, Point _dir, Size _size)
         {
             pos = _pos;
             dir = _dir;
             size = _size;
-        }       
-        private static Image image = Image.FromFile("image.png");
-        public virtual void Draw()
-        {
-            
-            SplashScreen.buffer.Graphics.DrawImage(image, pos.X, pos.Y, size.Width, size.Height);
         }
+        /// <summary>
+        /// Рисование объекта
+        /// </summary>
+        public abstract void Draw();
+        /// <summary>
+        /// Действия связанные с движением
+        /// </summary>
         public virtual void Update()
         {
             pos.X = pos.X - dir.X;
